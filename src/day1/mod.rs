@@ -1,31 +1,13 @@
-#[allow(unused)]
-pub fn part1() {
-    let mut lines = std::io::stdin()
-        .lines()
-        .map(|l| l.unwrap())
-        .map(|l| l.parse::<usize>());
+use std::io::BufRead;
 
-    let elf_sum = || {
-        let mut it = lines
-            .by_ref()
-            .take_while(|line| line.is_ok())
-            .map(|line| line.unwrap());
-        it.next()
-            .map(|first| std::iter::once(first).chain(it).sum())
-    };
-
-    let elf_sum_iter = std::iter::repeat_with(elf_sum)
-        .take_while(|x| x.is_some())
-        .flatten();
-
-    let ans: usize = elf_sum_iter.max().unwrap();
-
-    println!("{ans}");
+fn input() -> std::io::BufReader<std::fs::File> {
+    let mut p = std::path::PathBuf::from(crate::CARGO_MANIFEST_DIR);
+    p.push("src/day1/input.txt");
+    std::io::BufReader::new(std::fs::File::open(p).unwrap())
 }
 
-#[allow(unused)]
-pub fn part2() {
-    let mut lines = std::io::stdin()
+pub fn part1() -> usize {
+    let mut lines = input()
         .lines()
         .map(|l| l.unwrap())
         .map(|l| l.parse::<usize>());
@@ -43,7 +25,29 @@ pub fn part2() {
         .take_while(|x| x.is_some())
         .flatten();
 
-    let ans: usize = elf_sum_iter
+    elf_sum_iter.max().unwrap()
+}
+
+pub fn part2() -> usize {
+    let mut lines = input()
+        .lines()
+        .map(|l| l.unwrap())
+        .map(|l| l.parse::<usize>());
+
+    let elf_sum = || {
+        let mut it = lines
+            .by_ref()
+            .take_while(|line| line.is_ok())
+            .map(|line| line.unwrap());
+        it.next()
+            .map(|first| std::iter::once(first).chain(it).sum())
+    };
+
+    let elf_sum_iter = std::iter::repeat_with(elf_sum)
+        .take_while(|x| x.is_some())
+        .flatten();
+
+    elf_sum_iter
         .fold(([0; 3]), |mut cur, v| {
             if v > cur[0] {
                 cur.swap(1, 2);
@@ -58,7 +62,5 @@ pub fn part2() {
             cur
         })
         .into_iter()
-        .sum();
-
-    println!("{ans}");
+        .sum()
 }
