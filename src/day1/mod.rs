@@ -48,7 +48,7 @@ pub fn part2() -> usize {
         .flatten();
 
     elf_sum_iter
-        .fold(([0; 3]), |mut cur, v| {
+        .fold([0; 3], |mut cur, v| {
             if v > cur[0] {
                 cur.swap(1, 2);
                 cur.swap(0, 1);
