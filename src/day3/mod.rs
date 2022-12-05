@@ -3,7 +3,9 @@ use std::io::BufRead;
 
 fn input() -> std::io::BufReader<std::fs::File> {
     let mut p = std::path::PathBuf::from(crate::CARGO_MANIFEST_DIR);
-    p.push("src/day3/input.txt");
+    p.push("src");
+    p.push(module_path!().split("::").last().unwrap());
+    p.push("input.txt");
     std::io::BufReader::new(std::fs::File::open(p).unwrap())
 }
 
