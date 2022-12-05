@@ -3,8 +3,6 @@ mod day2;
 mod day3;
 mod day4;
 
-pub static CARGO_MANIFEST_DIR: &str = std::env!("CARGO_MANIFEST_DIR");
-
 fn main() {
     println!("advent of code!");
     dbg!(day1::part1());

@@ -1,7 +1,7 @@
 use std::io::BufRead;
 
 fn input() -> std::io::BufReader<std::fs::File> {
-    let mut p = std::path::PathBuf::from(crate::CARGO_MANIFEST_DIR);
+    let mut p = std::path::PathBuf::from(std::env!("CARGO_MANIFEST_DIR"));
     p.push("src");
     p.push(module_path!().split("::").last().unwrap());
     p.push("input.txt");
@@ -10,17 +10,17 @@ fn input() -> std::io::BufReader<std::fs::File> {
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 struct Range {
-    first: usize,
+    start: usize,
     end: usize,
 }
 
 impl Range {
     fn contains(self, other: Self) -> bool {
-        self.first <= other.first && self.end >= other.end
+        self.start <= other.start && self.end >= other.end
     }
 
     fn is_cross(self, other: Self) -> bool {
-        self.end < other.first || self.first > other.end
+        self.end < other.start || self.start > other.end
     }
 }
 
@@ -30,7 +30,7 @@ impl std::str::FromStr for Range {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let mut w = s.split('-');
         Ok(Self {
-            first: w.next().unwrap().parse().unwrap(),
+            start: w.next().unwrap().parse().unwrap(),
             end: w.next().unwrap().parse().unwrap(),
         })
     }
