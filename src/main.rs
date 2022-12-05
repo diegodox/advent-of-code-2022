@@ -1,5 +1,6 @@
 mod day1;
 mod day2;
+mod day3;
 
 pub static CARGO_MANIFEST_DIR: &str = std::env!("CARGO_MANIFEST_DIR");
 
@@ -9,4 +10,6 @@ fn main() {
     dbg!(day1::part2());
     dbg!(day2::part1());
     dbg!(day2::part2());
+    dbg!(day3::part1());
+    dbg!(day3::part2());
 }
