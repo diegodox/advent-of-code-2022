@@ -46,8 +46,7 @@ pub fn part2() -> usize {
             .by_ref()
             .take_while(|line| line.is_ok())
             .map(|line| line.unwrap());
-        it.next()
-            .map(|first| std::iter::once(first).chain(it).sum())
+        Some(std::iter::once(it.next()?).chain(it).sum())
     };
 
     let elf_sum_iter = std::iter::repeat_with(elf_sum)
