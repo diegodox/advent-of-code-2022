@@ -81,14 +81,13 @@ fn t() {
 
 #[test]
 fn t2() {
-    use itertools::Itertools;
     let x = "2-4,6-8
 2-3,4-5
 5-7,7-9
 2-8,3-7
 6-6,4-6
 2-6,4-8";
-    let v = x
+    let v: Vec<_> = x
         .lines()
         .map(|l| {
             let mut words = l.split(',');
@@ -98,7 +97,7 @@ fn t2() {
             )
         })
         .map(|(r1, r2)| r1.is_cross(r2))
-        .collect_vec();
+        .collect();
     let ans = vec![true, true, false, false, false, false];
     assert_eq!(ans, v);
 }
