@@ -23,8 +23,10 @@ pub fn part1() -> usize {
     let elf_sum = || {
         let mut it = lines
             .by_ref()
-            .take_while(|line| line.is_ok())
+            .take_while(|line| line.is_ok()) // take while line can be parsed as usize
             .map(|line| line.unwrap());
+        // returns Some(sum of iter) if iter is NOT empty
+        //         None              if iter is empty
         Some(std::iter::once(it.next()?).chain(it).sum())
     };
 
