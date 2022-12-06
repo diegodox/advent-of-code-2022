@@ -8,6 +8,7 @@ fn main() {
 fn input() -> std::io::BufReader<std::fs::File> {
     let mut p = std::path::PathBuf::from(std::env!("CARGO_MANIFEST_DIR"));
     p.push("src");
+    p.push("bin");
     p.push(module_path!().split("::").last().unwrap());
     p.push("input.txt");
     std::io::BufReader::new(std::fs::File::open(p).unwrap())
@@ -24,8 +25,7 @@ pub fn part1() -> usize {
             .by_ref()
             .take_while(|line| line.is_ok())
             .map(|line| line.unwrap());
-        it.next()
-            .map(|first| std::iter::once(first).chain(it).sum())
+        Some(std::iter::once(it.next()?).chain(it).sum())
     };
 
     let elf_sum_iter = std::iter::repeat_with(elf_sum)

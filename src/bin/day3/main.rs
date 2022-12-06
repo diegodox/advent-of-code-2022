@@ -54,6 +54,7 @@ impl<I: Iterator> Iterator for Chunk3<I> {
 fn input() -> std::io::BufReader<std::fs::File> {
     let mut p = std::path::PathBuf::from(std::env!("CARGO_MANIFEST_DIR"));
     p.push("src");
+    p.push("bin");
     p.push(module_path!().split("::").last().unwrap());
     p.push("input.txt");
     std::io::BufReader::new(std::fs::File::open(p).unwrap())
