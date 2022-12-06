@@ -1,5 +1,10 @@
 use std::io::BufRead;
 
+fn main() {
+    dbg!(part1());
+    dbg!(part2());
+}
+
 fn input() -> std::io::BufReader<std::fs::File> {
     let mut p = std::path::PathBuf::from(std::env!("CARGO_MANIFEST_DIR"));
     p.push("src");

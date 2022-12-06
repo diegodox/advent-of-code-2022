@@ -1,5 +1,10 @@
 use std::io::BufRead;
 
+fn main() {
+    dbg!(part1());
+    dbg!(part2());
+}
+
 pub fn part1() -> usize {
     input()
         .lines()
