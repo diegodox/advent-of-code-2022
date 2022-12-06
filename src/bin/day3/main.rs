@@ -18,7 +18,7 @@ pub fn part2() -> usize {
         .lines()
         .map(|lines| lines.unwrap())
         .chunk3()
-        .map(|(l1, l2, l3)| part2_chunk(l1, l2, l3))
+        .map(part2_chunk)
         .sum()
 }
 
@@ -40,14 +40,10 @@ struct Chunk3<I> {
 }
 
 impl<I: Iterator> Iterator for Chunk3<I> {
-    type Item = (
-        <I as Iterator>::Item,
-        <I as Iterator>::Item,
-        <I as Iterator>::Item,
-    );
+    type Item = [<I as Iterator>::Item; 3];
 
     fn next(&mut self) -> Option<Self::Item> {
-        Some((self.iter.next()?, self.iter.next()?, self.iter.next()?))
+        Some([self.iter.next()?, self.iter.next()?, self.iter.next()?])
     }
 }
 
@@ -92,12 +88,11 @@ fn part1_line<S: AsRef<str>>(line: S) -> usize {
         .sum()
 }
 
-fn part2_chunk<S: AsRef<str>>(l1: S, l2: S, l3: S) -> usize {
-    let lines = [l1.as_ref(), l2.as_ref(), l3.as_ref()];
+fn part2_chunk<S: AsRef<str>>(chunk: [S; 3]) -> usize {
     ('a'..='z')
         .into_iter()
         .chain('A'..='Z')
-        .filter(|c| lines.iter().all(|l| l.contains(*c)))
+        .filter(|c| chunk.iter().all(|l| l.as_ref().contains(*c)))
         .map(char_point)
         .sum()
 }
